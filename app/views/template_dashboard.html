@@ -1,0 +1,48 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="public/bower_components/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="public/assets/css/main.css">
+		<title>Test - By WIll</title>
+	</head>
+	<body>
+		<header>
+			<div class="container">
+			  <div class="jumbotron">
+				<div class="row">
+					<div class="col-sm-12 text-right">
+						<h4>Olá, {{session_name}}! <a class="btn btn-warning" href="{{URL_BASE}}/?module=logout">Logut</a></h4>
+					</div>
+				</div>
+			    <h1>Teste - Dashboard</h1>
+			    <p></p>
+			  </div>
+			</div>
+		</header>
+		<div class="container">
+           <div class="row">
+                <div class="col-sm-12 text-center">
+              	  {{message}}            
+                </div>
+            </div>
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+					  <div class="list-group">
+					    <a href="#" class="list-group-item active">Menu Principal</a>
+					        <a href="{{URL_BASE}}/?module=atividade" class="list-group-item">
+					        	<h5>Atividades</h5>
+					        </a>
+					  </div>
+					</div>
+					<div class="col-sm-10 text-center ">
+						{{content}}
+					</div>
+				</div>
+			</div>
+		</div>	
+		<footer>
+			<script src="public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+			<script src="public/assets/js/main.js"></script>
+		</footer>
+	</body>	
+</html>
