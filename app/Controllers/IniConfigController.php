@@ -40,11 +40,23 @@ class IniConfigController extends Controller
                     }
 
                     if($this->create_userAction($fact)){
-                        redirect_route('login');
+                        if($this->create_statusAction($fact)){
+                            if($this->create_statusAction($fact)) {
+                                if($this->insert_status($fact)) {
+                                    redirect_route('login');
+                                }{
+                                    return ['message'=>'Erro ao tentar inserir os \'status\'. Tente executar: <br>'.$this->query_insert_status(), 'alert-class' => 'alert-danger'];
+                                }
+                            }else{
+                                return ['message'=>'Erro ao tentar gerar a tabela \'atividade\'. Tente executar: <br>'.$this->create_atividade(), 'alert-class' => 'alert-danger'];
+                            }
+                        }else{
+                            return ['message'=>'Erro ao tentar gerar a tabela \'Status\'. Tente executar: <br>'.$this->create_status(), 'alert-class' => 'alert-danger'];
+                        }
                     }
                     else{
                         view('iniconfig.html');
-                        return ['message'=>'Erro ao tentar gerar a tabela User. Tente executar: <br>'.$this->create_user(), 'alert-class' => 'alert-danger'];
+                        return ['message'=>'Erro ao tentar gerar a tabela \'User\'. Tente executar: <br>'.$this->create_user(), 'alert-class' => 'alert-danger'];
                     }
                 }
                 catch (Exception $e){
@@ -112,6 +124,28 @@ class IniConfigController extends Controller
         return true;
     }
 
+    public function create_statusAction($conn)
+    {
+        $exit_table = $this->check_if_table_exist($conn, 'status');
+        if(empty($exit_table)){
+            $conn->setQueries($this->create_status());
+            $conn->prepareQuery();
+            return $conn->stmtExecute();
+        }
+        return true;
+    }
+
+    public function create_atividadeAction($conn)
+    {
+        $exit_table = $this->check_if_table_exist($conn, 'atividade');
+        if(empty($exit_table)){
+            $conn->setQueries($this->create_atividade());
+            $conn->prepareQuery();
+            return $conn->stmtExecute();
+        }
+        return true;
+    }
+
     public function check_if_table_exist($conn, $table)
     {
         "SHOW TABLES LIKE '".$table."'";
@@ -166,7 +200,15 @@ class IniConfigController extends Controller
                 ON UPDATE NO ACTION);";
     }
 
-    public function insert_status()
+    public function insert_status($conn)
+    {
+        $conn->setQueries($this->query_insert_status());
+        $conn->prepareQuery();
+        return $conn->stmtExecute();
+
+    }
+
+    public function query_insert_status()
     {
         return "INSERT INTO status (`status`) VALUES ('Pendente'),('Em desenvolvimento'),('Em teste'),('Concluído');";
     }
