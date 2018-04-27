@@ -191,13 +191,7 @@ class IniConfigController extends Controller
               `created_at` DATETIME NULL,
               `updated_at` DATETIME NULL,
               `deleted_at` DATETIME NULL,
-              PRIMARY KEY (`id`),
-              INDEX `fk_atividade_1_idx` (`status_id` ASC),
-              CONSTRAINT `fk_atividade_1`
-                FOREIGN KEY (`status_id`)
-                REFERENCES `teste`.`status` (`id`)
-                ON DELETE NO ACTION
-                ON UPDATE NO ACTION);";
+              PRIMARY KEY (`id`));";
     }
 
     public function insert_status($conn)
