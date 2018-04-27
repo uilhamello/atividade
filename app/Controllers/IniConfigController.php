@@ -41,7 +41,7 @@ class IniConfigController extends Controller
 
                     if($this->create_userAction($fact)){
                         if($this->create_statusAction($fact)){
-                            if($this->create_statusAction($fact)) {
+                            if($this->create_atividadeAction($fact)) {
                                 if($this->insert_status($fact)) {
                                     redirect_route('login');
                                 }{
@@ -183,11 +183,11 @@ class IniConfigController extends Controller
         return "CREATE TABLE atividade (
                 `id` INT NOT NULL AUTO_INCREMENT,
               `nome` VARCHAR(255) NOT NULL,
-              `descricao` VARCHAR(600) NOT NULL,
+              `descricao` VARCHAR(600) NULL,
               `data_inicio` DATETIME NULL,
               `data_fim` DATETIME NULL,
-              `status_id` INT NOT NULL,
-              `situacao` VARCHAR(55) NOT NULL,
+              `status_id` INT NULL,
+              `situacao` VARCHAR(55) NULL,
               `created_at` DATETIME NULL,
               `updated_at` DATETIME NULL,
               `deleted_at` DATETIME NULL,
@@ -210,7 +210,7 @@ class IniConfigController extends Controller
 
     public function query_insert_status()
     {
-        return "INSERT INTO status (`status`) VALUES ('Pendente'),('Em desenvolvimento'),('Em teste'),('Concluído');";
+        return utf8_decode("INSERT INTO status (`status`) VALUES ('Pendente'),('Em desenvolvimento'),('Em teste'),('Concluído');");
     }
 
 }
